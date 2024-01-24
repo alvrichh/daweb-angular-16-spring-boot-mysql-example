@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  mysql:
+    container_name: daweb-mysql  # Nombre personalizado del contenedor
+    build:
+      context: ./mysql-docker  # Utiliza el directorio actual como contexto para el Dockerfile
+      dockerfile: Dockerfile  # Nombre del Dockerfile
+    volumes:
+      - ./mysql-docker/mysql_data:/var/lib/mysql  # Monta un volumen para almacenar los datos de MySQL
+    ports:
+      - "${MYSQL_PORT}:${MYSQL_PORT}"  # Mapea el puerto 3306 del contenedor al puerto 3306 del host
+    env_file:
+      - .env  # Carga las variables de entorno desde el archivo .env
+
+volumes:
+  mysql_data:  # Define el volumen para los datos de MySQL
